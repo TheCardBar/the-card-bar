@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Card Bar</title>
+
+<style>
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #0f0f12;
+color: #fff;
+}
+
+header {
+background: #111;
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid #222;
+}
+
+header h1 {
+margin: 0;
+font-size: 22px;
+letter-spacing: 2px;
+}
+
+.container {
+padding: 20px;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+}
+
+.card {
+background: #1a1a1f;
+border-radius: 12px;
+padding: 15px;
+border: 1px solid #2a2a2a;
+transition: 0.2s;
+}
+
+.card:hover {
+transform: scale(1.02);
+}
+
+.card img {
+width: 100%;
+border-radius: 10px;
+background: #333;
+}
+
+.title {
+font-size: 16px;
+margin: 10px 0 5px;
+}
+
+.price {
+color: #00ff99;
+font-weight: bold;
+}
+
+button {
+width: 100%;
+margin-top: 8px;
+padding: 10px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.buy {
+background: #00ff99;
+color: #000;
+}
+
+.offer {
+background: #333;
+color: #fff;
+}
+
+.offer-box {
+display: none;
+margin-top: 10px;
+}
+
+input {
+width: 100%;
+padding: 8px;
+margin-top: 5px;
+border-radius: 6px;
+border: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>THE CARD BAR</h1>
+<div>Premium Sports Cards Marketplace</div>
+</header>
+
+<div class="container" id="cards"></div>
+
+<script>
+const inventory = [
+{
+name: "2023 Bowman Chrome Rookie Auto",
+price: 250,
+img: "https://via.placeholder.com/300x200"
+},
+{
+name: "PSA 10 Charizard Holo",
+price: 1200,
+img: "https://via.placeholder.com/300x200"
+},
+{
+name: "Michael Jordan Rookie Reprint",
+price: 400,
+img: "https://via.placeholder.com/300x200"
+}
+];
+
+function renderCards() {
+const container = document.getElementById("cards");
+
+inventory.forEach((item, index) => {
+const card = document.createElement("div");
+card.className = "card";
+
+card.innerHTML = `
+<img src="${item.img}" />
+<div class="title">${item.name}</div>
+<div class="price">$${item.price}</div>
+
+<button class="buy" onclick="buyNow(${index})">Buy Now</button>
+<button class="offer" onclick="toggleOffer(${index})">Make Offer</button>
+
+<div class="offer-box" id="offer-${index}">
+<input type="number" id="offerInput-${index}" placeholder="Enter your offer $"/>
+<button onclick="submitOffer(${index})">Submit Offer</button>
+</div>
+`;
+
+container.appendChild(card);
+});
+}
+
+function buyNow(i) {
+alert("Checkout demo: You selected " + inventory[i].name);
+}
+
+function toggleOffer(i) {
+const box = document.getElementById("offer-" + i);
+box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function submitOffer(i) {
+const value = document.getElementById("offerInput-" + i).value;
+alert("Offer submitted: $" + value + " for " + inventory[i].name);
+}
+
+renderCards();
+</script>
+
+</body>
+</html>
